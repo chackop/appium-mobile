@@ -48,10 +48,10 @@ public class Mobile_Test {
 
     @Test
     public void test() {
-        WebDriverWait wait = new WebDriverWait(driver, 10);
+        // WebDriverWait wait = new WebDriverWait(driver, 10);
 
-        WebElement screen = wait.until(ExpectedConditions.presenceOfElementLocated(MobileBy.AccessibilityId("Login Screen")));
-        screen.click();
+        // WebElement screen = wait.until(ExpectedConditions.presenceOfElementLocated(MobileBy.AccessibilityId("Login Screen")));
+        // screen.click();
 
         // Elements basic
 
@@ -73,10 +73,18 @@ public class Mobile_Test {
             
             //    assert(loginText.getText().contains("alice"));
 
-        try { Thread.sleep(1001); } catch (Exception ign) {}
+        // try { Thread.sleep(1001); } catch (Exception ign) {}
 
         // Page source
-        System.out.println(driver.getPageSource());
+        // System.out.println(driver.getPageSource());
+
+        WebDriverWait wait = new WebDriverWait(driver, 10);
+        wait.until(ExpectedConditions.presenceOfElementLocated(MobileBy.AccessibilityId("Echo Box"))).click();
+
+        wait.until(ExpectedConditions.presenceOfElementLocated(MobileBy.AccessibilityId("messageInput"))).sendKeys("hello world");
+        driver.findElement(MobileBy.AccessibilityId("messageSaveBtn")).click();
+
+        wait.until(ExpectedConditions.presenceOfElementLocated(MobileBy.AccessibilityId("hello world")));
 
     }
 }
