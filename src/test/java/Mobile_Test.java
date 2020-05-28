@@ -53,23 +53,30 @@ public class Mobile_Test {
         WebElement screen = wait.until(ExpectedConditions.presenceOfElementLocated(MobileBy.AccessibilityId("Login Screen")));
         screen.click();
 
-        WebElement username = wait.until(ExpectedConditions.presenceOfElementLocated(MobileBy.AccessibilityId("username")));
-        username.sendKeys("alice");
+        // Elements basic
 
-        WebElement password = driver.findElement(MobileBy.AccessibilityId("password"));
-        password.sendKeys("mypassword");
+    //     WebElement username = wait.until(ExpectedConditions.presenceOfElementLocated(MobileBy.AccessibilityId("username")));
+    //     username.sendKeys("alice");
 
-        WebElement login = driver.findElement(MobileBy.AccessibilityId("loginBtn"));
-        login.click();
+    //     WebElement password = driver.findElement(MobileBy.AccessibilityId("password"));
+    //     password.sendKeys("mypassword");
 
-        try { Thread.sleep(1000); } catch (Exception ign) {}
+    //     WebElement login = driver.findElement(MobileBy.AccessibilityId("loginBtn"));
+    //     login.click();
 
-        WebElement loginText = wait.until(
-            ExpectedConditions.presenceOfElementLocated(
-                MobileBy.xpath("//android.widget.TextView[contains(@text, 'You are logged in')]")
-            )
-        );
+    
+    //     WebElement loginText = wait.until(
+        //         ExpectedConditions.presenceOfElementLocated(
+            //             MobileBy.xpath("//android.widget.TextView[contains(@text, 'You are logged in')]")
+            //         )
+            //     );
+            
+            //    assert(loginText.getText().contains("alice"));
 
-       assert(loginText.getText().contains("alice"));
+        try { Thread.sleep(1001); } catch (Exception ign) {}
+
+        // Page source
+        System.out.println(driver.getPageSource());
+
     }
 }
