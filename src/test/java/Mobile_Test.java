@@ -25,6 +25,7 @@ public class Mobile_Test {
     private static final String APP = "https://github.com/cloudgrey-io/the-app/releases/download/v1.9.0/TheApp-v1.9.0.apk";
     
     private static final String APPIUM = "http://localhost:4723/wd/hub";
+    private static final String SITE = "https://appiumpro.com";
 
     // private IOSDriver driver;
     // private AndroidDriver driver;
@@ -134,9 +135,16 @@ public class Mobile_Test {
         // Web in mobile
 
         WebDriverWait wait = new WebDriverWait(driver, 10);
-        driver.get("https://appiumpro.com");
+        driver.get(SITE);
         wait.until(ExpectedConditions.presenceOfElementLocated(By.cssSelector(".toggleMenu"))).click();
-        driver.findElement(By.linkText("All Editions")).click();
-        wait.until(ExpectedConditions.presenceOfElementLocated(By.cssSelector(".editionList")));
+        driver.findElement(By.linkText("Contact")).click();
+        wait.until(ExpectedConditions.presenceOfElementLocated(By.cssSelector("#contactEmail"))).sendKeys("foo@bar.com");
+        driver.findElement(By.cssSelector("#contactText")).sendKeys("hello");
+        driver.findElement(By.xpath("//input[@value='Send']")).click();
+        String response = wait.until(ExpectedConditions.presenceOfElementLocated(By.cssSelector(".contactResponse"))).getText();
+        assert(response.contains("Captcha"));
+
+        // driver.findElement(By.linkText("All Editions")).click();
+        // wait.until(ExpectedConditions.presenceOfElementLocated(By.cssSelector(".editionList")));
     }
 }
