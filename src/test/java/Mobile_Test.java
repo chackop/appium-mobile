@@ -16,6 +16,8 @@ import org.openqa.selenium.interactions.Sequence;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.openqa.selenium.remote.RemoteWebDriver;
+import org.openqa.selenium.By;
 
 public class Mobile_Test {
 
@@ -25,12 +27,14 @@ public class Mobile_Test {
     private static final String APPIUM = "http://localhost:4723/wd/hub";
 
     // private IOSDriver driver;
-    private AndroidDriver driver;
+    // private AndroidDriver driver;
+    private RemoteWebDriver driver;
 
     @Before
     public void setUp() throws Exception {
         DesiredCapabilities caps = new DesiredCapabilities();
-        
+
+        // IOS
         // caps.setCapability("platformName", "iOS");
         // caps.setCapability("platformVersion", "11.4");
         // caps.setCapability("deviceName", "iPhone 8");
@@ -38,12 +42,21 @@ public class Mobile_Test {
         // caps.setCapability("app", APP);
         // driver = new IOSDriver(new URL(APPIUM), caps);
 
-        caps.setCapability("platformName", "Android");
-        caps.setCapability("platformVersion", "9");
-        caps.setCapability("deviceName", "Android Emulator");
-        caps.setCapability("automationName", "UiAutomator2");
-        caps.setCapability("app", APP);
-        driver = new AndroidDriver(new URL(APPIUM), caps);
+        // Android
+        // caps.setCapability("platformName", "Android");
+        // caps.setCapability("platformVersion", "9");
+        // caps.setCapability("deviceName", "Android Emulator");
+        // caps.setCapability("automationName", "UiAutomator2");
+        // caps.setCapability("app", APP);
+        // driver = new AndroidDriver(new URL(APPIUM), caps);
+
+        // Web driver
+        caps.setCapability("platformName", "iOS");
+        caps.setCapability("platformVersion", "12.1");
+        caps.setCapability("deviceName", "iPhone 8");
+        caps.setCapability("automationName", "XCUITest");
+        caps.setCapability("browserName", "Safari");
+        driver = new RemoteWebDriver(new URL(APPIUM), caps);
     }
 
     @After
@@ -92,28 +105,38 @@ public class Mobile_Test {
         // wait.until(ExpectedConditions.presenceOfElementLocated(MobileBy.AccessibilityId("messageInput"))).sendKeys("hello world");
         // driver.findElement(MobileBy.AccessibilityId("messageSaveBtn")).click();
 
+        // Touch actions
+
         // wait.until(ExpectedConditions.presenceOfElementLocated(MobileBy.AccessibilityId("hello world")));
+        // WebDriverWait wait = new WebDriverWait(driver, 10);
+
+        // WebElement screen = wait.until(ExpectedConditions.presenceOfElementLocated(MobileBy.AccessibilityId("List Demo")));
+        // screen.click();
+
+        // wait.until(ExpectedConditions.presenceOfElementLocated(MobileBy.AccessibilityId("Altocumulus")));
+
+        // PointerInput finger = new PointerInput(Kind.TOUCH, "finger");
+        // Interaction moveToStart = finger.createPointerMove(Duration.ZERO, Origin.viewport(), 520, 1530);
+        // Interaction pressDown = finger.createPointerDown(MouseButton.LEFT.asArg());
+        // Interaction moveToEnd = finger.createPointerMove(Duration.ofMillis(1000), Origin.viewport(), 520, 490);
+        // Interaction pressUp = finger.createPointerUp(MouseButton.LEFT.asArg());
+
+        // Sequence swipe = new Sequence(finger, 0);
+        // swipe.addAction(moveToStart);
+        // swipe.addAction(pressDown);
+        // swipe.addAction(moveToEnd);
+        // swipe.addAction(pressUp);
+
+        // driver.perform(Arrays.asList(swipe));
+
+        // driver.findElement(MobileBy.AccessibilityId("Stratus"));
+
+        // Web in mobile
+
         WebDriverWait wait = new WebDriverWait(driver, 10);
-
-        WebElement screen = wait.until(ExpectedConditions.presenceOfElementLocated(MobileBy.AccessibilityId("List Demo")));
-        screen.click();
-
-        wait.until(ExpectedConditions.presenceOfElementLocated(MobileBy.AccessibilityId("Altocumulus")));
-
-        PointerInput finger = new PointerInput(Kind.TOUCH, "finger");
-        Interaction moveToStart = finger.createPointerMove(Duration.ZERO, Origin.viewport(), 520, 1530);
-        Interaction pressDown = finger.createPointerDown(MouseButton.LEFT.asArg());
-        Interaction moveToEnd = finger.createPointerMove(Duration.ofMillis(1000), Origin.viewport(), 520, 490);
-        Interaction pressUp = finger.createPointerUp(MouseButton.LEFT.asArg());
-
-        Sequence swipe = new Sequence(finger, 0);
-        swipe.addAction(moveToStart);
-        swipe.addAction(pressDown);
-        swipe.addAction(moveToEnd);
-        swipe.addAction(pressUp);
-
-        driver.perform(Arrays.asList(swipe));
-
-        driver.findElement(MobileBy.AccessibilityId("Stratus"));
+        driver.get("https://appiumpro.com");
+        wait.until(ExpectedConditions.presenceOfElementLocated(By.cssSelector(".toggleMenu"))).click();
+        driver.findElement(By.linkText("All Editions")).click();
+        wait.until(ExpectedConditions.presenceOfElementLocated(By.cssSelector(".editionList")));
     }
 }
