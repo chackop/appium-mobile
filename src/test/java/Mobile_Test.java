@@ -64,6 +64,12 @@ public class Mobile_Test {
 
         try { Thread.sleep(1000); } catch (Exception ign) {}
 
-//        assert(loginText.getText().contains("alice"));
+        WebElement loginText = wait.until(
+            ExpectedConditions.presenceOfElementLocated(
+                MobileBy.xpath("//android.widget.TextView[contains(@text, 'You are logged in')]")
+            )
+        );
+
+       assert(loginText.getText().contains("alice"));
     }
 }
